@@ -68,12 +68,12 @@ export default class Home extends Component {
 
   deleteTodo = (id) => {
     const { posts, auth, firebase } = this.props
-    if (!auth || !auth.uid) {
-      return this.setState({ error: 'You must be Logged into Delete' })
-    }
-    if (posts[id].owner !== auth.uid) {
-      return this.setState({ error: 'You must own post to delete' })
-    }
+    //if (!auth || !auth.uid) {
+    //  return this.setState({ error: 'You must be Logged into Delete' })
+    //}
+    //if (posts[id].owner !== auth.uid) {
+    //  return this.setState({ error: 'You must own post to delete' })
+    //}
     firebase.remove(`/posts/${id}`)
   }
 
@@ -112,9 +112,9 @@ export default class Home extends Component {
           {
             !isLoaded(posts)
               ? <CircularProgress />
-              : <Paper className={classes.paper}>
-                <Subheader>Todos</Subheader>
-                <List className={classes.list}>
+              : <div className={classes.container}>
+                <Subheader>Posts</Subheader>
+                <div className={classes.list}>
                   {
                     posts &&
                       map(posts, (post, id) => (
@@ -122,14 +122,13 @@ export default class Home extends Component {
                           key={id}
                           id={id}
                           post={post}
-                          onCompleteClick={this.toggleDone}
                           onDeleteClick={this.deleteTodo}
                         />
                       )
                     )
                   }
-                </List>
-              </Paper>
+                </div>
+              </div>
           }
         </div>
       </div>
