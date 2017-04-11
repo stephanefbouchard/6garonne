@@ -24,8 +24,8 @@ export default class PostItem extends Component {
       <div className={classes.container}>
         <Card>
           <CardHeader
-              title="Jérôme et Jean-François"
-              subtitle="Les deux frères"
+              title="Les 6 jours de Garonne"
+              subtitle="De Toulouse à Bordeaux en Kayak sur la Garonne"
               avatar={profilePic}
           />
           <CardMedia
