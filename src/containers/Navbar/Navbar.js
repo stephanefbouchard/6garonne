@@ -9,6 +9,7 @@ import {
   isEmpty
 } from 'react-redux-firebase'
 import {
+  BLOG_PATH,
   LIST_PATH,
   ACCOUNT_PATH,
   LOGIN_PATH,
@@ -122,7 +123,7 @@ export default class Navbar extends Component {
     return (
       <AppBar
         title={
-          <Link to={accountExists ? `${LIST_PATH}` : '/'} className={classes.brand}>
+          <Link to={`${BLOG_PATH}`} className={classes.brand}>
             Les 6 jours de Garonne
           </Link>
         }

@@ -3,6 +3,7 @@ import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import Home from './Home'
 import LoginRoute from './Login'
 import SignupRoute from './Signup'
+import BlogRoute from './Blog'
 import ProjectsRoute from './Projects'
 import AccountRoute from './Account'
 import RecoverRoute from './Recover'
@@ -18,6 +19,7 @@ export const createRoutes = (store) => ({
     AccountRoute(store),
     LoginRoute(store),
     SignupRoute(store),
+    BlogRoute(store),
     ProjectsRoute(store),
     RecoverRoute(store)
   ]

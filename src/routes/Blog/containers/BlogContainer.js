@@ -17,7 +17,7 @@ import Paper from 'material-ui/Paper'
 import Subheader from 'material-ui/Subheader'
 import PostItem from '../components/PostItem'
 import NewPostPanel from '../components/NewPostPanel'
-import classes from './HomeContainer.scss'
+import classes from './BlogContainer.scss'
 
 // const populates = [
 //   { child: 'owner', root: 'users', keyProp: 'key' }
@@ -37,6 +37,13 @@ import classes from './HomeContainer.scss'
     // posts: populatedDataToJS(firebase, '/posts', populates), // if populating
     // posts: orderedToJS(firebase, 'posts'), // if using ordering such as orderByChild
   })
+)
+
+@firebaseConnect()
+@connect(
+    ({ firebase }) => ({
+      auth: pathToJS(firebase, 'auth'),
+    })
 )
 export default class Home extends Component {
   static propTypes = {
@@ -90,6 +97,7 @@ export default class Home extends Component {
   render () {
     const { posts } = this.props
     const { error } = this.state
+    const loggedIn = this.props.auth
     console.log('posts:', posts)
 
     return (
@@ -105,10 +113,13 @@ export default class Home extends Component {
             : null
         }
         <div className={classes.posts}>
-          <NewPostPanel
-            onNewClick={this.handleAdd}
-            disabled={false}
-          />
+          {
+            loggedIn &&
+              <NewPostPanel
+              onNewClick={this.handleAdd}
+              disabled={false}
+              />
+          }
           {
             !isLoaded(posts)
               ? <CircularProgress />
