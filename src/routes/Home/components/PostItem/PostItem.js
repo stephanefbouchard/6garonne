@@ -4,6 +4,7 @@ import { ListItem } from 'material-ui/List'
 import Delete from 'material-ui/svg-icons/action/delete'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import profilePic from 'static/image/2frere.jpg'
 import { isObject } from 'lodash'
 
 export default class PostItem extends Component {
@@ -17,6 +18,7 @@ export default class PostItem extends Component {
 
   render () {
     const { post, id, onDeleteClick } = this.props
+    const date =  new Date(parseInt(post.date)).toLocaleString('FR-ca')
 
     return (
       <div className={classes.container}>
@@ -24,19 +26,19 @@ export default class PostItem extends Component {
           <CardHeader
               title="Jérôme et Jean-François"
               subtitle="Les deux frères"
-              avatar="https://lh6.googleusercontent.com/FxH6McUefs6iamNJtgfzYqESeSPi-QaPddy1pr0pJa7GFQUJamPiEUeNFFD5q59b50He7c1IGQ=w271"
+              avatar={profilePic}
           />
           <CardMedia
-              overlay={<CardTitle title={post.data.titre} subtitle={post.data.subTitle} />}
+              overlay={<CardTitle title={post.title} subtitle={post.subTitle} />}
           >
-            <img src="http://www.material-ui.com/images/nature-600-337.jpg" />
+            <img src={post.imageUrl} />
           </CardMedia>
-          <CardTitle title={post.data.titre} subtitle={post.data.subTitle} />
+          <CardTitle title={post.titre} subtitle={post.subTitle} />
           <CardText>
-            {post.data.text}
+            {post.text}
           </CardText>
           <CardText>
-            {post.data.date}
+            {date}
           </CardText>
         </Card>
       </div>

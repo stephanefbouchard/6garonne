@@ -5,74 +5,117 @@ import TextField from 'material-ui/TextField'
 import DatePicker from 'material-ui/DatePicker'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import Subheader from 'material-ui/Subheader'
+import RaisedButton from 'material-ui/RaisedButton'
 import classes from './NewPostPanel.scss'
+import { ValidatorForm, TextValidator, DateValidator } from 'react-material-ui-form-validator';
 
 export default class NewPostPanel extends Component {
-  static propTypes = {
-    onNewClick: PropTypes.func,
-    disabled: PropTypes.bool
-  }
+    constructor(props) {
+        super(props)
+        this.resetState();
+        this.handleChange = this.handleChange.bind(this)
+    }
 
-  handleAdd = () => {
-    const { newPost } = this.refs
-    const data = this.state
-    this.props.onNewClick({ data, done: false })
-    newPost.value = ''
-  }
+    static propTypes = {
+        onNewClick: PropTypes.func,
+    }
 
-  handleChangeDate = (event, date) => {
-    this.setState({
-      date: date.toString()
-    });
-  };
+    resetState = () => {
+        this.state = {
+            post: {
+                title: '',
+                subTitle: '',
+                text: '',
+                imageUrl: ''
+            }
+        }
+    }
 
-  render () {
-    const { disabled } = this.props
+    handleChange(event) {
+        const { post } = this.state
+        post[event.target.name] = event.target.value;
+        this.setState({ post });
+    }
 
-    return (
-        <Paper className={classes.container}>
-            <Subheader>Nouvel Article</Subheader>
-            <div className={classes.inputSection}>
-                <TextField
-                    floatingLabelText='Titre'
-                    ref='newPost'
-                    onChange={({ target }) => this.setState({titre: target.value})}
-                />
-            </div>
-            <div className={classes.inputSection}>
-                <TextField
-                    floatingLabelText='Sous-Titre'
-                    ref='newPost'
-                    onChange={({ target }) => this.setState({subTitle: target.value})}
-                />
-            </div>
-            <div className={classes.inputSection}>
-                <TextField
-                    floatingLabelText='Contenu'
-                    ref='newPost'
-                    multiLine={true}
-                    rows={3}
-                    onChange={({ target }) => this.setState({text: target.value})}
-                />
-            </div>
-            <div className={classes.inputSection}>
-                <DatePicker
-                    floatingLabelText='Date'
-                    ref='newPost'
-                    onChange={this.handleChangeDate}
-                />
-            </div>
-            <div className={classes.inputSection}>
-                <IconButton
-                    onClick={this.handleAdd}
-                    disabled={disabled}
-                    tooltipPosition='top-center'
-                    tooltip={disabled ? 'Login pour ajouter un article' : 'Ajouter article'}
+    handleChangeDate = (event, date) => {
+        const { post } = this.state
+        post.date = date.getTime()
+        this.setState({ post });
+    }
+
+    handleAdd = () => {
+        const data = this.state.post
+        this.props.onNewClick(data)
+        this.resetState()
+        this.setState(this.state);
+    }
+
+    render () {
+        const { post } = this.state;
+
+        return (
+            <Paper className={classes.container}>
+                <ValidatorForm
+                    onSubmit={this.handleAdd.bind(this)}
                 >
-                    <ContentAdd />
-                </IconButton>
-            </div>
-        </Paper>
-    )
-  }
+                    <Subheader>Nouvel Article</Subheader>
+                    <div className={classes.inputSection}>
+                        <TextValidator
+                            floatingLabelText='Titre'
+                            onChange={this.handleChange}
+                            name="title"
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            value={post.title}
+                        />
+                    </div>
+                    <div className={classes.inputSection}>
+                        <TextValidator
+                            floatingLabelText='Sous-Titre'
+                            name="subTitle"
+                            onChange={this.handleChange}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            value={post.subTitle}
+                        />
+                    </div>
+                    <div className={classes.inputSection}>
+                        <TextValidator
+                            floatingLabelText='Contenu'
+                            name="text"
+                            multiLine={true}
+                            rows={3}
+                            onChange={this.handleChange}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            value={post.text}
+                        />
+                    </div>
+                    <div className={classes.inputSection}>
+                        <TextValidator
+                            floatingLabelText='ImageUrl'
+                            name="imageUrl"
+                            onChange={this.handleChange}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            value={post.imageUrl}
+                        />
+                    </div>
+                    <div className={classes.inputSection}>
+                        <DatePicker
+                            floatingLabelText='Date'
+                            ref='newPost'
+                            onChange={this.handleChangeDate}
+                        />
+                    </div>
+                    <div className={classes.inputSection}>
+                        <RaisedButton
+                            label="Publier"
+                            type="submit"
+                        />
+                    </div>
+                </ValidatorForm>
+            </Paper>
+        )
+    }
 }

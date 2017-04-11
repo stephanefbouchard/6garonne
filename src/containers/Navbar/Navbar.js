@@ -23,7 +23,7 @@ import MenuItem from 'material-ui/MenuItem'
 import FlatButton from 'material-ui/FlatButton'
 import DownArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-down'
 import Avatar from 'material-ui/Avatar'
-import defaultUserImage from 'static/User.png'
+import defaultUserImage from 'static/image/User.png'
 
 const buttonStyle = {
   color: 'white',

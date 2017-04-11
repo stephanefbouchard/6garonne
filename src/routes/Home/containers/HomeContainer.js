@@ -26,7 +26,7 @@ import classes from './HomeContainer.scss'
 @firebaseConnect([
   // 'posts' // sync full list of posts
   // { path: '/projects', type: 'once' } // for loading once instead of binding
-  { path: 'posts', queryParams: ['limitToFirst=20'] } // limit to first 20
+  { path: 'posts', queryParams: ['orderByChild=date'] } // limit to first 20
   // { path: 'posts', queryParams: ['limitToFirst=20'], populates } // populate
   // { path: 'posts', queryParams: ['orderByChild=text'] }, // list posts alphabetically
 ])
