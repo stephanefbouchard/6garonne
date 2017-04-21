@@ -7,7 +7,7 @@ import {
   isLoaded,
   pathToJS,
   dataToJS,
-  // orderedToJS,
+  orderedToJS,
   // populatedDataToJS
 } from 'react-redux-firebase'
 import CircularProgress from 'material-ui/CircularProgress'
@@ -26,25 +26,25 @@ import classes from './BlogContainer.scss'
 @firebaseConnect([
   // 'posts' // sync full list of posts
   // { path: '/projects', type: 'once' } // for loading once instead of binding
-  { path: 'posts', queryParams: ['orderByChild=date'] } // limit to first 20
+  { path: 'posts', queryParams: ['orderByChild=num'] } // limit to first 20
   // { path: 'posts', queryParams: ['limitToFirst=20'], populates } // populate
   // { path: 'posts', queryParams: ['orderByChild=text'] }, // list posts alphabetically
 ])
 @connect(
   ({firebase}) => ({
     auth: pathToJS(firebase, 'auth'),
-    posts: dataToJS(firebase, 'posts')
+    //posts: dataToJS(firebase, 'posts')
     // posts: populatedDataToJS(firebase, '/posts', populates), // if populating
-    // posts: orderedToJS(firebase, 'posts'), // if using ordering such as orderByChild
+    posts: orderedToJS(firebase, 'posts'), // if using ordering such as orderByChild
   })
 )
 
-@firebaseConnect()
-@connect(
-    ({ firebase }) => ({
-      auth: pathToJS(firebase, 'auth'),
-    })
-)
+//@firebaseConnect()
+//@connect(
+//    ({ firebase }) => ({
+//      auth: pathToJS(firebase, 'auth'),
+//    })
+//)
 export default class Home extends Component {
   static propTypes = {
     posts: PropTypes.oneOfType([
@@ -124,7 +124,7 @@ export default class Home extends Component {
             !isLoaded(posts)
               ? <CircularProgress />
               : <div className={classes.container}>
-                <Subheader>Posts</Subheader>
+                <Subheader>Le journal de bord</Subheader>
                 <div className={classes.list}>
                   {
                     posts &&

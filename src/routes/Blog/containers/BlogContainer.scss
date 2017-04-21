@@ -2,6 +2,9 @@
 .container {
   @extend .flex-column-center;
   padding-top: 4rem;
+  margin: auto;
+  width: 96%;
+
 }
 .todos {
   @extend .flex-column-center;

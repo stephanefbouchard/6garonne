@@ -16,6 +16,7 @@ export default class NewPostPanel extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
+
     static propTypes = {
         onNewClick: PropTypes.func,
     }
@@ -43,12 +44,30 @@ export default class NewPostPanel extends Component {
         this.setState({ post });
     }
 
+    handleDateNow = (event) => {
+        const MaxVal = 9999999999999;
+        var date = new Date(); 
+        const { post } = this.state
+        post.date = date.getTime()
+        post.num = MaxVal - post.date;
+        this.setState({ post });
+    }
+
     handleAdd = () => {
         const data = this.state.post
         this.props.onNewClick(data)
         this.resetState()
         this.setState(this.state);
     }
+
+ //  <div className={classes.inputSection}>
+ //       <DatePicker
+ //            floatingLabelText='Date'
+ //            ref='newPost'
+ //            onChange={this.handleChangeDate}
+ //      />
+ //  </div>
+
 
     render () {
         const { post } = this.state;
@@ -102,16 +121,10 @@ export default class NewPostPanel extends Component {
                         />
                     </div>
                     <div className={classes.inputSection}>
-                        <DatePicker
-                            floatingLabelText='Date'
-                            ref='newPost'
-                            onChange={this.handleChangeDate}
-                        />
-                    </div>
-                    <div className={classes.inputSection}>
                         <RaisedButton
                             label="Publier"
                             type="submit"
+                            onClick={this.handleDateNow}
                         />
                     </div>
                 </ValidatorForm>

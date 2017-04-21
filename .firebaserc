@@ -1,6 +1,6 @@
 {
   "projects": {
-    "dev": "garonne-7319b",
+    "dev": "garonne-dev",
     "stage": "garonne-7319b",
     "prod": "garonne-7319b"
   }
