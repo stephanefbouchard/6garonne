@@ -9,12 +9,12 @@ module.exports = {
   // are served webpack by to fix this issue:
   // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
   development : (config) => ({
-    compiler_public_path : `http://${config.server_host}:${config.server_port}/`,
+    compiler_public_path : `/`,
     firebase: {
-      apiKey: "AIzaSyCtxOdLKmo-hjTin3d8S8o96GqU0lt5D0w",
-      authDomain: "garonne-7319b.firebaseapp.com",
-      databaseURL: "https://garonne-7319b.firebaseio.com",
-      storageBucket: "garonne-7319b.appspot.com"
+      apiKey: "AIzaSyCqYj3CWZBcJX6K8nlxQ2zh8IHsa-7R4BE",
+      authDomain: "garonne-dev.firebaseapp.com",
+      databaseURL: "https://garonne-dev.firebaseio.com",
+      storageBucket: "garonne-dev.appspot.com"
     },
     reduxFirebase: {
       userProfile: 'users', // root that user profiles are written to
