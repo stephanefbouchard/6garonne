@@ -34,9 +34,7 @@ export default class PostItem extends Component {
             <img src={post.imageUrl} />
           </CardMedia>
           <CardTitle title={post.titre} subtitle={post.subTitle} />
-          <CardText>
-            {post.text}
-          </CardText>
+          <CardText dangerouslySetInnerHTML={{__html: post.text}} />
           <CardText>
             {date}
           </CardText>
