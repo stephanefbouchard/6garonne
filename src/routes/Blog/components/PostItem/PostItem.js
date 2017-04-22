@@ -5,6 +5,7 @@ import Delete from 'material-ui/svg-icons/action/delete'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import profilePic from 'static/image/2frere.jpg'
+import bandeauVideo from 'static/image/bandeau-video.jpg'
 import { isObject } from 'lodash'
 
 export default class PostItem extends Component {
@@ -20,7 +21,16 @@ export default class PostItem extends Component {
     const { post, id, onDeleteClick } = this.props
     const date =  new Date(parseInt(post.date)).toLocaleString('FR-ca')
 
-    return (
+    var videoCard = ""
+    var imageUrl = post.imageUrl
+
+   if (post.imageUrl.indexOf("videos") > -1) {
+      videoCard = '<video width="98%" controls> <source src="' + post.imageUrl + '" type="video/mp4" /> </video>'
+      imageUrl = bandeauVideo
+    }
+
+
+    const mediaCard = (
       <div className={classes.container}>
         <Card>
           <CardHeader
@@ -29,17 +39,22 @@ export default class PostItem extends Component {
               avatar={profilePic}
           />
           <CardMedia
-              overlay={<CardTitle title={post.title} subtitle={post.subTitle} />}
+              overlay={<CardTitle title={post.title} />}
           >
-            <img src={post.imageUrl} />
+              <img src={imageUrl} />
           </CardMedia>
           <CardTitle title={post.titre} subtitle={post.subTitle} />
+          <CardText dangerouslySetInnerHTML={{__html: videoCard}} />
           <CardText dangerouslySetInnerHTML={{__html: post.text}} />
           <CardText>
             {date}
           </CardText>
         </Card>
       </div>
+    )
+
+    return (
+      mediaCard
     )
   }
 }
