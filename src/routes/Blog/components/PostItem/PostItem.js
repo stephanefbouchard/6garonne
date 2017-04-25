@@ -20,6 +20,7 @@ export default class PostItem extends Component {
   render () {
     const { post, id, onDeleteClick } = this.props
     const date =  new Date(parseInt(post.date)).toLocaleString('FR-ca')
+    const textHtml = post.text.replace(/\n/g, "<br />");
 
     var videoCard = ""
     var imageUrl = post.imageUrl
@@ -28,6 +29,7 @@ export default class PostItem extends Component {
       videoCard = '<video width="98%" controls> <source src="' + post.imageUrl + '" type="video/mp4" /> </video>'
       imageUrl = bandeauVideo
     }
+
 
 
     const mediaCard = (
@@ -45,7 +47,7 @@ export default class PostItem extends Component {
           </CardMedia>
           <CardTitle title={post.titre} subtitle={post.subTitle} />
           <CardText dangerouslySetInnerHTML={{__html: videoCard}} />
-          <CardText dangerouslySetInnerHTML={{__html: post.text}} />
+          <CardText dangerouslySetInnerHTML={{__html: textHtml}} />
           <CardText>
             {date}
           </CardText>

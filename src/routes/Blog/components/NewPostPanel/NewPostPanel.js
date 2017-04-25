@@ -46,7 +46,7 @@ export default class NewPostPanel extends Component {
 
     handleDateNow = (event) => {
         const MaxVal = 9999999999999;
-        var date = new Date(); 
+        var date = new Date();
         const { post } = this.state
         post.date = date.getTime()
         post.num = MaxVal - post.date;
@@ -100,7 +100,7 @@ export default class NewPostPanel extends Component {
                     </div>
                     <div className={classes.inputSection}>
                         <TextValidator
-                            floatingLabelText='Contenu'
+                            floatingLabelText='Contenu Blog'
                             name="text"
                             multiLine={true}
                             rows={3}
