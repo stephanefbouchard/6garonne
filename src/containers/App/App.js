@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
+import { Helmet } from 'react-helmet'
 
 // Themeing/Styling
 import Theme from '../../theme'
@@ -34,6 +35,10 @@ export default class AppContainer extends Component {
           <Router history={browserHistory}>
             {routes}
           </Router>
+          <Helmet>
+            <title>Les 6 jours de Garonne</title>
+            <meta property="og:title" content="Les 6 jours de Garonne - Blog" />
+          </Helmet>
         </div>
       </Provider>
     )

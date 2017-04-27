@@ -108,8 +108,8 @@ export default class Home extends Component {
                     posts &&
                       map(posts, (post, id) => (
                         <PostItem
-                          key={id}
-                          id={id}
+                          key={post.key}
+                          id={post.key}
                           post={post}
                           onDeleteClick={() => this.deletePostItem(post.key)}
                           onSelect={() => this.context.router.push(`${BLOG_PATH}/${post.key}`)}

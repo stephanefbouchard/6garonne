@@ -1,13 +1,15 @@
 import React, { PropTypes, Component } from 'react'
+import { BLOG_PATH } from 'constants/paths'
 import classes from './PostItem.scss'
-import { ListItem } from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import {Card, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { ShareButtons } from 'react-share';
+import ShareIcon from 'material-ui/svg-icons/social/share'
+const { FacebookShareButton } = ShareButtons;
 import profilePic from 'static/image/2frere.jpg'
-import bandeauVideo from 'static/image/bandeau-video.jpg'
-import { isObject } from 'lodash'
+
+const bandeauVideo = 'https://firebasestorage.googleapis.com/v0/b/garonne-7319b.appspot.com/o/photos%2FBlog%2Fbandeau-video.jpg?alt=media&token=d461f1f6-c246-4216-878c-c62bfba9b99c'
 
 export default class PostItem extends Component {
   static propTypes = {
@@ -60,6 +62,15 @@ export default class PostItem extends Component {
                   </IconButton>
                   : null
             }
+              <FacebookShareButton
+                  className='shareButton'
+                  url={`https://garonne-7319b.firebaseapp.com/${BLOG_PATH}/${id}`}
+                  title={`Les 6 jours de Garonne - ${post.title}`}
+                  description={post.text}
+                  picture={imageUrl}
+              >
+                  <ShareIcon />
+              </FacebookShareButton>
           </CardText>
         </Card>
       </div>
