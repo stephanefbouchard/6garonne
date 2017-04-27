@@ -4,12 +4,14 @@ import classes from './PostItem.scss'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import {Card, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import { ShareButtons } from 'react-share';
+import { ShareButtons, generateShareIcon } from 'react-share';
 import ShareIcon from 'material-ui/svg-icons/social/share'
-const { FacebookShareButton } = ShareButtons;
+const { FacebookShareButton, TwitterShareButton } = ShareButtons;
 import profilePic from 'static/image/2frere.jpg'
 
 const bandeauVideo = 'https://firebasestorage.googleapis.com/v0/b/garonne-7319b.appspot.com/o/photos%2FBlog%2Fbandeau-video.jpg?alt=media&token=d461f1f6-c246-4216-878c-c62bfba9b99c'
+const FacebookIcon = generateShareIcon('facebook');
+const TwitterIcon = generateShareIcon('twitter');
 
 export default class PostItem extends Component {
   static propTypes = {
@@ -62,6 +64,13 @@ export default class PostItem extends Component {
                   </IconButton>
                   : null
             }
+              <TwitterShareButton
+                  className='shareButton'
+                  url={`https://garonne-7319b.firebaseapp.com/${BLOG_PATH}/${id}`}
+                  title={`Les 6 jours de Garonne - ${post.title}`}
+              >
+                  <TwitterIcon size={30}/>
+              </TwitterShareButton>
               <FacebookShareButton
                   className='shareButton'
                   url={`https://garonne-7319b.firebaseapp.com/${BLOG_PATH}/${id}`}
@@ -69,7 +78,7 @@ export default class PostItem extends Component {
                   description={post.text}
                   picture={imageUrl}
               >
-                  <ShareIcon />
+                  <FacebookIcon size={30} />
               </FacebookShareButton>
           </CardText>
         </Card>
