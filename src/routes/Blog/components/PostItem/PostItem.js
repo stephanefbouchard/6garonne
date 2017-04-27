@@ -1,7 +1,8 @@
 import React, { PropTypes, Component } from 'react'
 import classes from './PostItem.scss'
 import { ListItem } from 'material-ui/List'
-import Delete from 'material-ui/svg-icons/action/delete'
+import IconButton from 'material-ui/IconButton'
+import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import profilePic from 'static/image/2frere.jpg'
@@ -18,7 +19,7 @@ export default class PostItem extends Component {
   }
 
   render () {
-    const { post, id, onDeleteClick } = this.props
+    const { post, id, onDeleteClick, loggedIn} = this.props
     const date =  new Date(parseInt(post.date)).toLocaleString('FR-ca')
 
     var videoCard = ""
@@ -48,6 +49,17 @@ export default class PostItem extends Component {
           <CardText dangerouslySetInnerHTML={{__html: post.text}} />
           <CardText>
             {date}
+            {
+              loggedIn
+                ? <IconButton
+                  tooltip='delete'
+                  onClick={onDeleteClick}
+                  className='deleteButton'
+                  >
+                  <DeleteIcon />
+                  </IconButton>
+                  : null
+            }
           </CardText>
         </Card>
       </div>

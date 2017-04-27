@@ -65,15 +65,7 @@ export default class Home extends Component {
     error: null
   }
 
-  toggleDone = (post, id) => {
-    const { firebase, auth } = this.props
-    if (!auth || !auth.uid) {
-      return this.setState({ error: 'You must be Logged into Toggle Done' })
-    }
-    firebase.set(`/posts/${id}/done`, !post.done)
-  }
-
-  deleteTodo = (id) => {
+  deletePostItem = (id) => {
     const { posts, auth, firebase } = this.props
     //if (!auth || !auth.uid) {
     //  return this.setState({ error: 'You must be Logged into Delete' })
@@ -81,7 +73,7 @@ export default class Home extends Component {
     //if (posts[id].owner !== auth.uid) {
     //  return this.setState({ error: 'You must own post to delete' })
     //}
-    firebase.remove(`/posts/${id}`)
+    this.props.firebase.remove(`/posts/${id}`)
   }
 
   handleAdd = (newPost) => {
@@ -133,7 +125,8 @@ export default class Home extends Component {
                           key={id}
                           id={id}
                           post={post}
-                          onDeleteClick={this.deleteTodo}
+                          onDeleteClick={() => this.deletePostItem(post.key)}
+                          loggedIn={loggedIn}
                         />
                       )
                     )
