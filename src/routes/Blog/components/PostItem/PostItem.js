@@ -19,7 +19,7 @@ export default class PostItem extends Component {
   }
 
   render () {
-    const { post, id, onDeleteClick, loggedIn} = this.props
+    const { post, id, onDeleteClick, onSelect, loggedIn} = this.props
     const date =  new Date(parseInt(post.date)).toLocaleString('FR-ca')
 
     var videoCard = ""
@@ -40,11 +40,11 @@ export default class PostItem extends Component {
               avatar={profilePic}
           />
           <CardMedia
-              overlay={<CardTitle title={post.title} />}
+              overlay={<CardTitle className="card-title" title={post.title} onClick={() => onSelect(post)} />}
           >
               <img src={imageUrl} />
           </CardMedia>
-          <CardTitle title={post.titre} subtitle={post.subTitle} />
+          <CardTitle title={post.titre} subtitle={post.subTitle}/>
           <CardText dangerouslySetInnerHTML={{__html: videoCard}} />
           <CardText dangerouslySetInnerHTML={{__html: post.text}} />
           <CardText>

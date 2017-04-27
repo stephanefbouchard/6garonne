@@ -10,44 +10,32 @@ import {
   orderedToJS,
   // populatedDataToJS
 } from 'react-redux-firebase'
+import { BLOG_PATH } from 'constants/paths'
 import CircularProgress from 'material-ui/CircularProgress'
 import Snackbar from 'material-ui/Snackbar'
-import { List } from 'material-ui/List'
-import Paper from 'material-ui/Paper'
 import Subheader from 'material-ui/Subheader'
 import PostItem from '../components/PostItem'
 import NewPostPanel from '../components/NewPostPanel'
 import classes from './BlogContainer.scss'
 
-// const populates = [
-//   { child: 'owner', root: 'users', keyProp: 'key' }
-// ]
-
 @firebaseConnect([
-  // 'posts' // sync full list of posts
-  // { path: '/projects', type: 'once' } // for loading once instead of binding
   { path: 'posts', queryParams: ['orderByChild=num'] } // limit to first 20
-  // { path: 'posts', queryParams: ['limitToFirst=20'], populates } // populate
-  // { path: 'posts', queryParams: ['orderByChild=text'] }, // list posts alphabetically
 ])
 @connect(
   ({firebase}) => ({
     auth: pathToJS(firebase, 'auth'),
-    //posts: dataToJS(firebase, 'posts')
-    // posts: populatedDataToJS(firebase, '/posts', populates), // if populating
     posts: orderedToJS(firebase, 'posts'), // if using ordering such as orderByChild
   })
 )
 
-//@firebaseConnect()
-//@connect(
-//    ({ firebase }) => ({
-//      auth: pathToJS(firebase, 'auth'),
-//    })
-//)
 export default class Home extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   static propTypes = {
-    posts: PropTypes.oneOfType([
+      children: PropTypes.object,
+      posts: PropTypes.oneOfType([
       PropTypes.object, // object if using dataToJS
       PropTypes.array // array if using orderedToJS
     ]),
@@ -67,12 +55,9 @@ export default class Home extends Component {
 
   deletePostItem = (id) => {
     const { posts, auth, firebase } = this.props
-    //if (!auth || !auth.uid) {
-    //  return this.setState({ error: 'You must be Logged into Delete' })
-    //}
-    //if (posts[id].owner !== auth.uid) {
-    //  return this.setState({ error: 'You must own post to delete' })
-    //}
+    if (!auth || !auth.uid) {
+      return this.setState({ error: 'You must be Logged into Delete' })
+    }
     this.props.firebase.remove(`/posts/${id}`)
   }
 
@@ -87,10 +72,11 @@ export default class Home extends Component {
   }
 
   render () {
+    if (this.props.children) return this.props.children
+
     const { posts } = this.props
     const { error } = this.state
     const loggedIn = this.props.auth
-    console.log('posts:', posts)
 
     return (
       <div className={classes.container} style={{ color: Theme.palette.primary2Color }}>
@@ -126,6 +112,7 @@ export default class Home extends Component {
                           id={id}
                           post={post}
                           onDeleteClick={() => this.deletePostItem(post.key)}
+                          onSelect={() => this.context.router.push(`${BLOG_PATH}/${post.key}`)}
                           loggedIn={loggedIn}
                         />
                       )

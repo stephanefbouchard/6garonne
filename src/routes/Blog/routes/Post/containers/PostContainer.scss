@@ -1,0 +1,13 @@
+@import 'base';
+
+.progress {
+  @extend .flex-row-center;
+  align-items: center;
+  padding-top: 8rem;
+}
+.container {
+  @extend .flex-column-center;
+  padding-top: 1rem;
+  margin: auto;
+  width: 98%;
+}

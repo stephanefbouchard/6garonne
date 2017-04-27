@@ -1,10 +1,9 @@
 @import 'base';
 .container {
   @extend .flex-column-center;
-  padding-top: 4rem;
+  padding-top: 1rem;
   margin: auto;
   width: 98%;
-
 }
 .todos {
   @extend .flex-column-center;
